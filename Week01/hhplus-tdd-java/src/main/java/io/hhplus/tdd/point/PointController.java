@@ -1,7 +1,9 @@
 package io.hhplus.tdd.point;
 
+import io.hhplus.tdd.exception.PointException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointController {
 
-    private final PointService pointService;
+    private final PointServiceImpl pointServiceImpl;
 
     /*
         [ TODO List ]
@@ -28,7 +30,7 @@ public class PointController {
      */
     @GetMapping("{id}")
     public UserPoint point(@PathVariable long id) {
-        return pointService.getUserById(id);
+        return pointServiceImpl.getUserById(id);
     }
 
     /**
@@ -36,7 +38,7 @@ public class PointController {
      */
     @GetMapping("{id}/histories")
     public List<PointHistory> history(@PathVariable long id) {
-        return pointService.getHistoriesById(id);
+        return pointServiceImpl.getHistoriesById(id);
     }
 
     /**
@@ -47,7 +49,7 @@ public class PointController {
             @PathVariable long id,
             @RequestBody CalculateRequest calculateRequest
     ) {
-        return pointService.chargePointById(id, calculateRequest);
+        return pointServiceImpl.chargePointById(id, calculateRequest);
     }
 
     /**
@@ -58,6 +60,6 @@ public class PointController {
             @PathVariable long id,
             @RequestBody CalculateRequest calculateRequest
     ) {
-        return pointService.usePointById(id, calculateRequest);
+        return pointServiceImpl.usePointById(id, calculateRequest);
     }
 }
