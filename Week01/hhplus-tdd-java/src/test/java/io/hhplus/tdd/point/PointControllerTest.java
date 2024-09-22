@@ -3,7 +3,6 @@ package io.hhplus.tdd.point;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.hhplus.tdd.database.PointHistoryTable;
 import io.hhplus.tdd.database.UserPointTable;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +78,7 @@ class PointControllerTest {
     public void chargePoint() throws Exception {
         long chargePoint = 500L;
         long afterAmount = AMOUNT + chargePoint;
-        ChargeRequest req = new ChargeRequest(chargePoint);
+        CalculateRequest req = new CalculateRequest(chargePoint);
 
         when(userPointTable.selectById(USER_ID)).thenReturn(new UserPoint(USER_ID, AMOUNT, System.currentTimeMillis()));
         when(userPointTable.insertOrUpdate(USER_ID, afterAmount)).thenReturn(new UserPoint(USER_ID, afterAmount, System.currentTimeMillis()));
@@ -96,7 +95,7 @@ class PointControllerTest {
     public void usePoint() throws Exception {
         long usePoint = 500L;
         long afterAmount = AMOUNT - usePoint;
-        ChargeRequest req = new ChargeRequest(usePoint);
+        CalculateRequest req = new CalculateRequest(usePoint);
 
         when(userPointTable.selectById(USER_ID)).thenReturn(new UserPoint(USER_ID, AMOUNT, System.currentTimeMillis()));
         when(userPointTable.insertOrUpdate(USER_ID, afterAmount)).thenReturn(new UserPoint(USER_ID, afterAmount, System.currentTimeMillis()));
