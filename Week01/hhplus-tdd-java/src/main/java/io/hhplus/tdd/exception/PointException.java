@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 public class PointException extends RuntimeException{
     HttpStatus code;
 
-    public PointException(String message, HttpStatus code) {
-        super(message);
-        this.code = code;
+    public PointException(PointExceptionMsg pointExceptionMsg) {
+        super(pointExceptionMsg.getMsg());
+        this.code = pointExceptionMsg.getCode();
     }
 }

@@ -1,9 +1,11 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.controller;
 
-import io.hhplus.tdd.exception.PointException;
+import io.hhplus.tdd.point.dto.PointHistory;
+import io.hhplus.tdd.point.dto.PointRequest;
+import io.hhplus.tdd.point.dto.UserPoint;
+import io.hhplus.tdd.point.service.impl.PointServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,9 +49,9 @@ public class PointController {
     @PatchMapping("{id}/charge")
     public UserPoint charge(
             @PathVariable long id,
-            @RequestBody CalculateRequest calculateRequest
+            @RequestBody PointRequest pointRequest
     ) {
-        return pointServiceImpl.chargePointById(id, calculateRequest);
+        return pointServiceImpl.chargePointById(id, pointRequest);
     }
 
     /**
@@ -58,8 +60,8 @@ public class PointController {
     @PatchMapping("{id}/use")
     public UserPoint use(
             @PathVariable long id,
-            @RequestBody CalculateRequest calculateRequest
+            @RequestBody PointRequest pointRequest
     ) {
-        return pointServiceImpl.usePointById(id, calculateRequest);
+        return pointServiceImpl.usePointById(id, pointRequest);
     }
 }

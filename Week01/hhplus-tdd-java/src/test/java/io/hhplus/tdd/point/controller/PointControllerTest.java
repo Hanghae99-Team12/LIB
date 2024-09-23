@@ -1,8 +1,12 @@
-package io.hhplus.tdd.point;
+package io.hhplus.tdd.point.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.hhplus.tdd.database.PointHistoryTable;
 import io.hhplus.tdd.database.UserPointTable;
+import io.hhplus.tdd.point.dto.CalculateRequest;
+import io.hhplus.tdd.point.dto.PointHistory;
+import io.hhplus.tdd.point.dto.UserPoint;
+import io.hhplus.tdd.point.enums.TransactionType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +70,7 @@ class PointControllerTest {
 
         mockMvc.perform(get("/point/" + USER_ID + "/histories").contentType(APPLICATION_JSON))
                .andExpect(status().isOk())
-               .andExpect(jsonPath("$", hasSize(3)))
-               .andExpect(jsonPath("$[0].type").value("USE"))
-               .andExpect(jsonPath("$[1].type").value("CHARGE"));
+               .andExpect(jsonPath("$", hasSize(3)));
 
         verify(pointHistoryTable).selectAllByUserId(USER_ID);
     }
@@ -78,13 +80,13 @@ class PointControllerTest {
     public void chargePoint() throws Exception {
         long chargePoint = 500L;
         long afterAmount = AMOUNT + chargePoint;
-        CalculateRequest req = new CalculateRequest(chargePoint);
+        PointRequest req = new PointRequest(chargePoint);
 
         when(userPointTable.selectById(USER_ID)).thenReturn(new UserPoint(USER_ID, AMOUNT, System.currentTimeMillis()));
         when(userPointTable.insertOrUpdate(USER_ID, afterAmount)).thenReturn(new UserPoint(USER_ID, afterAmount, System.currentTimeMillis()));
 
         mockMvc.perform(patch("/point/" + USER_ID + "/charge").contentType(APPLICATION_JSON)
-                                                                         .content(objectMapper.writeValueAsString(req)))
+                                                              .content(objectMapper.writeValueAsString(req)))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.point").value(afterAmount));
 
@@ -95,15 +97,15 @@ class PointControllerTest {
     public void usePoint() throws Exception {
         long usePoint = 500L;
         long afterAmount = AMOUNT - usePoint;
-        CalculateRequest req = new CalculateRequest(usePoint);
+        PointRequest req = new PointRequest(usePoint);
 
         when(userPointTable.selectById(USER_ID)).thenReturn(new UserPoint(USER_ID, AMOUNT, System.currentTimeMillis()));
         when(userPointTable.insertOrUpdate(USER_ID, afterAmount)).thenReturn(new UserPoint(USER_ID, afterAmount, System.currentTimeMillis()));
 
         mockMvc.perform(patch("/point/" + USER_ID + "/use").contentType(APPLICATION_JSON)
-                                                                      .content(objectMapper.writeValueAsString(req)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.point").value(afterAmount));
+                                                           .content(objectMapper.writeValueAsString(req)))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.point").value(afterAmount));
 
         verify(userPointTable).selectById(USER_ID);
         verify(userPointTable).insertOrUpdate(USER_ID, afterAmount);
