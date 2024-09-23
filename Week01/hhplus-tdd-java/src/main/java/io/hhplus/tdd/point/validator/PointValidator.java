@@ -7,11 +7,11 @@ import static io.hhplus.tdd.exception.PointExceptionMsg.*;
 
 @Component
 public class PointValidator {
-    public final long MAX_POINT = 100_000L;
-    public final long MIN_POINT = 0L;
+    private final long MAX_POINT = 100_000L;
+    private final long MIN_POINT = 0L;
 
     public void validatePoint(long inputAmount, long afterAmount) throws PointException {
-        if(inputAmount < MIN_POINT) {
+        if(inputAmount <= MIN_POINT) {
             throw new PointException(NOT_POSITIVE);
         }
 
