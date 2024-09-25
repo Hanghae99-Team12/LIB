@@ -18,15 +18,6 @@ public class PointController {
 
     private final PointServiceImpl pointServiceImpl;
 
-    /*
-        [ TODO List ]
-        1. 존재하지 않는 유저인 경우
-        2. 금액이 음수로 넘어가는 경우 (사용 금액이 남은 잔액보다 모자란 경우)
-        3. 오버플로우도 고려 해야하나?? (최대 잔고)
-        4. 동시성 제어에 대한 통합 테스트
-        5. 동시성 제어 보고서 작성
-     */
-
     /**
      * TODO - 특정 유저의 포인트를 조회하는 기능을 작성해주세요.
      */
