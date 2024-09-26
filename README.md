@@ -1,5 +1,35 @@
 # ✨ 항해 백엔드 플러스 6기 TDD 개발 과제
 
+# 📂 디렉토리 구조
+
+       ├ 📁 hhplus
+       ⎮    ├ 📁 tdd
+       ⎮    ⎮    ├ 📁 database
+       ⎮    ⎮    ⎮   ├︎ 📃 PointHistory.java
+       ⎮    ⎮    ⎮   ├︎ 📃 UserPointTable.java
+       ⎮    ⎮    ├ 📁 exception
+       ⎮    ⎮    ⎮   ├︎ 📃 ApiControllerAdvice.java
+       ⎮    ⎮    ⎮   ├︎ 📃 ErrorResponse.java
+       ⎮    ⎮    ⎮   ├︎ 📃 PointException.java
+       ⎮    ⎮    ⎮   ├︎ 📃 PointExceptionMsg.java
+       ⎮    ⎮    ├ 📁 point
+       ⎮    ⎮    ⎮   ├︎ 📁 controller
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 PointController.java
+       ⎮    ⎮    ⎮   ├︎ 📁 dto
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 PointHistory.java
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 PointRequest.java
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 UserPoint.java
+       ⎮    ⎮    ⎮   ├︎ 📁 enums
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 TransactionType.java
+       ⎮    ⎮    ⎮   ├︎ 📁 service
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📁 impl
+       ⎮    ⎮    ⎮   ⎮   ⎮   ├︎ 📃 PointServiceImpl.java
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 PointService.java
+       ⎮    ⎮    ⎮   ├︎ 📁 validator
+       ⎮    ⎮    ⎮   ⎮   ├︎ 📃 PointValidator.java
+       ⎮    ⎮    ⎮   ├︎ 📃 PointManage.java (어디 둬야할지...?)
+       ⎮    ⎮    ├ 📃 TddApplication.java
+
 # 📆 Week01 - TDD 로 개발하기
 
 ## 📌 Task
