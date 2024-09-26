@@ -15,7 +15,6 @@ public class PointManager {
     private final Map<Long, ThreadPoolExecutor> userTasks = new ConcurrentHashMap<>();
 
     public Future<UserPoint> runTask(final long id, final PointRequest pointRequest, final Callable<UserPoint> task) {
-        // log.info("Current User Id [{}] & Queue Size [{}]", id, threadPoolExecutor.getQueue().size());
         return userTasks.computeIfAbsent(id, key -> createPriorityExecutor())
                         .submit(new PriorityTask(task, pointRequest));
     }
