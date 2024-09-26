@@ -32,8 +32,7 @@ class PointControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @MockBean
     private UserPointTable userPointTable;

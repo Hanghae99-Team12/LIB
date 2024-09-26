@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @RestController
@@ -41,7 +42,7 @@ public class PointController {
     public UserPoint charge(
             @PathVariable long id,
             @RequestBody PointRequest pointRequest
-    ) {
+    ) throws ExecutionException, InterruptedException {
         return pointServiceImpl.chargePointById(id, pointRequest);
     }
 
@@ -52,7 +53,7 @@ public class PointController {
     public UserPoint use(
             @PathVariable long id,
             @RequestBody PointRequest pointRequest
-    ) {
+    ) throws ExecutionException, InterruptedException {
         return pointServiceImpl.usePointById(id, pointRequest);
     }
 }
