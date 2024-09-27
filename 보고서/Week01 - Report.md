@@ -12,7 +12,7 @@
 - 순서를 보장할 수 없어 추가적인 자료 구조를 만들어야 한다.
 - 유저에 따라서 병렬 처리 해주어야 하는데, 구현 하고자 하는 목적이 맞지 않음 -> 다수 요청이 병목 현상을 만들 가능성
 
-### Why not `Concurrent, ThreadPoolExecutor`
+### Why `Concurrent, ThreadPoolExecutor`
 
 1. Concurrent
 
