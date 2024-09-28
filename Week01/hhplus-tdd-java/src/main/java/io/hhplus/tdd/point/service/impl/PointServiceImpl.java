@@ -41,21 +41,23 @@ public class PointServiceImpl implements PointService {
 
     @Override
     public UserPoint chargePointById(final long id, final PointRequest pointRequest) throws ExecutionException, InterruptedException {
-        return manipulatePoint(id, CHARGE, pointRequest);
+        return pointManager.runTask(id, pointRequest, () -> {
+            long afterAmount = userPointTable.selectById(id).point() + pointRequest.amount();
+
+            pointValidator.validatePoint(pointRequest.amount(), afterAmount);
+            pointHistoryTable.insert(id, afterAmount, CHARGE, System.currentTimeMillis());
+
+            return userPointTable.insertOrUpdate(id, afterAmount);
+        }).get();
     }
 
     @Override
     public UserPoint usePointById(final long id, final PointRequest pointRequest) throws ExecutionException, InterruptedException {
-        return manipulatePoint(id, USE, pointRequest);
-    }
-
-    private UserPoint manipulatePoint(final long id, final TransactionType type, final PointRequest pointRequest) throws ExecutionException, InterruptedException {
-        long inputAmount = pointRequest.amount() * (type == CHARGE ? 1 : -1);  // CHARGE(+), USE(-)
-        long afterAmount = userPointTable.selectById(id).point() + inputAmount;
-
         return pointManager.runTask(id, pointRequest, () -> {
+            long afterAmount = userPointTable.selectById(id).point() - pointRequest.amount();
+
             pointValidator.validatePoint(pointRequest.amount(), afterAmount);
-            pointHistoryTable.insert(id, afterAmount, type, System.currentTimeMillis());
+            pointHistoryTable.insert(id, afterAmount, USE, System.currentTimeMillis());
 
             return userPointTable.insertOrUpdate(id, afterAmount);
         }).get();

@@ -151,7 +151,8 @@ class PointManagerTest {
                     latch.countDown();
 
                     return new UserPoint(userId, 1, System.currentTimeMillis());
-            }));
+                })
+            );
         }
 
         latch.await();
