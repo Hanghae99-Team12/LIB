@@ -146,11 +146,12 @@ class PointManagerTest {
         for(int i = 0; i < JOB_COUNT; i++) {
             TimeUnit.MICROSECONDS.sleep(50);
 
-            pointManager.runTask(userId, new PointRequest(0), () -> {
-                latch.countDown();
+            pointHistories.add(
+                pointManager.runTask(userId, new PointRequest(0), () -> {
+                    latch.countDown();
 
-                return new UserPoint(userId, 1, System.currentTimeMillis());
-            });
+                    return new UserPoint(userId, 1, System.currentTimeMillis());
+            }));
         }
 
         latch.await();
